@@ -4,16 +4,28 @@
 
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 
 .wallet-adapter-button-trigger {
-    background: rgb(100, 26, 230) !important;
-    border-radius: 8px !important;
-    padding-left: 16px !important;
-    padding-right: 16px !important;
+  background: rgb(0, 169, 110) !important;
+  border-radius: 8px !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
 }
 .wallet-adapter-dropdown-list,
 .wallet-adapter-button {
-    font-family: inherit !important;
+  font-family: inherit !important;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(75%) sepia(79%) saturate(2476%) hue-rotate(88deg)
+    brightness(118%) contrast(119%);
+}
+
+.menu li > *:not(ul, .menu-title, details, .btn):active,
+.menu li > *:not(ul, .menu-title, details, .btn).active,
+.menu li > details > summary:active {
+  background-color: #00a96e;
+  color: white;
 }
