@@ -14,7 +14,12 @@ export const getProvider = (connection, wallet) => {
   return provider;
 };
 
-export async function initializeConfig(connection, wallet) {
+export async function initializeConfig(
+  connection,
+  wallet,
+  maxDuration,
+  maxAmount
+) {
   console.log("here");
   try {
     const anchorProvider = getProvider(connection, wallet);
@@ -30,8 +35,8 @@ export async function initializeConfig(connection, wallet) {
     const tx = await program.methods
       .initializeConfig(
         seed, // Seed
-        new BN(1000), // max_duration
-        new BN(1000) // max_amount
+        new BN(maxDuration), // max_duration
+        new BN(maxAmount) // max_amount
       )
       .accountsPartial({
         config: config,

@@ -14,6 +14,7 @@ const links: { label: string; path: string }[] = [
   { label: "My Campaigns", path: "/myCampaign" },
   { label: "My Donations", path: "/donations" },
   { label: "Create Campaign", path: "/create" },
+  { label: "Create Config", path: "/config" },
 ];
 
 export default function RootLayout({
