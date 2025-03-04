@@ -5,95 +5,70 @@
  * IDL can be found at `target/idl/crowdfi.json`.
  */
 export type Crowdfi = {
-  "address": "5NexZGyNMGAwBss3RmNFCDamhTQVbsWkbpvFSLED5wLv",
-  "metadata": {
-    "name": "crowdfi",
-    "version": "0.1.0",
-    "spec": "0.1.0",
-    "description": "Created with Anchor"
-  },
-  "instructions": [
+  address: "GMvQJy82KJryDR6nk2WEti4oYTLJjFKH2EbsdSjtgSMu";
+  metadata: {
+    name: "crowdfi";
+    version: "0.1.0";
+    spec: "0.1.0";
+    description: "Created with Anchor";
+  };
+  instructions: [
     {
-      "name": "closeCampaign",
-      "discriminator": [
-        65,
-        49,
-        110,
-        7,
-        63,
-        238,
-        206,
-        77
-      ],
-      "accounts": [
+      name: "closeCampaign";
+      discriminator: [65, 49, 110, 7, 63, 238, 206, 77];
+      accounts: [
         {
-          "name": "signer",
-          "writable": true,
-          "signer": true
+          name: "signer";
+          writable: true;
+          signer: true;
         },
         {
-          "name": "config",
-          "writable": true,
-          "pda": {
-            "seeds": [
+          name: "config";
+          writable: true;
+          pda: {
+            seeds: [
               {
-                "kind": "const",
-                "value": [
-                  99,
-                  111,
-                  110,
-                  102,
-                  105,
-                  103
-                ]
+                kind: "const";
+                value: [99, 111, 110, 102, 105, 103];
               },
               {
-                "kind": "account",
-                "path": "config.seed",
-                "account": "config"
+                kind: "account";
+                path: "config.seed";
+                account: "config";
               }
-            ]
-          }
+            ];
+          };
         },
         {
-          "name": "campaign",
-          "writable": true,
-          "pda": {
-            "seeds": [
+          name: "campaign";
+          writable: true;
+          pda: {
+            seeds: [
               {
-                "kind": "const",
-                "value": [
-                  99,
-                  97,
-                  109,
-                  112,
-                  97,
-                  105,
-                  103,
-                  110
-                ]
+                kind: "const";
+                value: [99, 97, 109, 112, 97, 105, 103, 110];
               },
               {
-                "kind": "account",
-                "path": "campaign.title",
-                "account": "campaign"
+                kind: "account";
+                path: "campaign.title";
+                account: "campaign";
               },
               {
-                "kind": "account",
-                "path": "campaign.admin",
-                "account": "campaign"
+                kind: "account";
+                path: "campaign.admin";
+                account: "campaign";
               }
-            ]
-          }
+            ];
+          };
         },
         {
-          "name": "campaignVault",
-          "writable": true,
-          "pda": {
-            "seeds": [
+          name: "campaignVault";
+          writable: true;
+          pda: {
+            seeds: [
               {
-                "kind": "const",
-                "value": [
+                kind: "const";
+                value: [
                   99,
                   97,
                   109,
@@ -108,132 +83,95 @@ export type Crowdfi = {
                   117,
                   108,
                   116
-                ]
+                ];
               },
               {
-                "kind": "account",
-                "path": "campaign"
+                kind: "account";
+                path: "campaign";
               }
-            ]
-          }
+            ];
+          };
         },
         {
-          "name": "campaignRewardMint",
-          "writable": true,
-          "pda": {
-            "seeds": [
+          name: "campaignRewardMint";
+          writable: true;
+          pda: {
+            seeds: [
               {
-                "kind": "const",
-                "value": [
-                  114,
-                  101,
-                  119,
-                  97,
-                  114,
-                  100,
-                  95,
-                  109,
-                  105,
-                  110,
-                  116
-                ]
+                kind: "const";
+                value: [114, 101, 119, 97, 114, 100, 95, 109, 105, 110, 116];
               },
               {
-                "kind": "account",
-                "path": "campaign"
+                kind: "account";
+                path: "campaign";
               }
-            ]
-          }
+            ];
+          };
         },
         {
-          "name": "systemProgram",
-          "address": "11111111111111111111111111111111"
+          name: "systemProgram";
+          address: "11111111111111111111111111111111";
         },
         {
-          "name": "tokenProgram"
+          name: "tokenProgram";
         }
-      ],
-      "args": []
+      ];
+      args: [];
     },
     {
-      "name": "createCampaign",
-      "discriminator": [
-        111,
-        131,
-        187,
-        98,
-        160,
-        193,
-        114,
-        244
-      ],
-      "accounts": [
+      name: "createCampaign";
+      discriminator: [111, 131, 187, 98, 160, 193, 114, 244];
+      accounts: [
         {
-          "name": "admin",
-          "writable": true,
-          "signer": true
+          name: "admin";
+          writable: true;
+          signer: true;
         },
         {
-          "name": "config",
-          "writable": true,
-          "pda": {
-            "seeds": [
+          name: "config";
+          writable: true;
+          pda: {
+            seeds: [
               {
-                "kind": "const",
-                "value": [
-                  99,
-                  111,
-                  110,
-                  102,
-                  105,
-                  103
-                ]
+                kind: "const";
+                value: [99, 111, 110, 102, 105, 103];
               },
               {
-                "kind": "account",
-                "path": "config.seed",
-                "account": "config"
+                kind: "account";
+                path: "config.seed";
+                account: "config";
               }
-            ]
-          }
+            ];
+          };
         },
         {
-          "name": "campaign",
-          "writable": true,
-          "pda": {
-            "seeds": [
+          name: "campaign";
+          writable: true;
+          pda: {
+            seeds: [
               {
-                "kind": "const",
-                "value": [
-                  99,
-                  97,
-                  109,
-                  112,
-                  97,
-                  105,
-                  103,
-                  110
-                ]
+                kind: "const";
+                value: [99, 97, 109, 112, 97, 105, 103, 110];
               },
               {
-                "kind": "arg",
-                "path": "title"
+                kind: "arg";
+                path: "title";
               },
               {
-                "kind": "account",
-                "path": "admin"
+                kind: "account";
+                path: "admin";
               }
-            ]
-          }
+            ];
+          };
         },
         {
-          "name": "campaignVault",
-          "writable": true,
-          "pda": {
-            "seeds": [
+          name: "vault";
+          writable: true;
+          pda: {
+            seeds: [
               {
-                "kind": "const",
-                "value": [
+                kind: "const";
+                value: [
                   99,
                   97,
                   109,
@@ -248,165 +186,128 @@ export type Crowdfi = {
                   117,
                   108,
                   116
-                ]
+                ];
               },
               {
-                "kind": "account",
-                "path": "campaign"
+                kind: "account";
+                path: "campaign";
               }
-            ]
-          }
+            ];
+          };
         },
         {
-          "name": "campaignRewardMint",
-          "writable": true,
-          "pda": {
-            "seeds": [
+          name: "rewardMint";
+          writable: true;
+          pda: {
+            seeds: [
               {
-                "kind": "const",
-                "value": [
-                  114,
-                  101,
-                  119,
-                  97,
-                  114,
-                  100,
-                  95,
-                  109,
-                  105,
-                  110,
-                  116
-                ]
+                kind: "const";
+                value: [114, 101, 119, 97, 114, 100, 95, 109, 105, 110, 116];
               },
               {
-                "kind": "account",
-                "path": "campaign"
+                kind: "account";
+                path: "campaign";
               }
-            ]
-          }
+            ];
+          };
         },
         {
-          "name": "systemProgram",
-          "address": "11111111111111111111111111111111"
+          name: "systemProgram";
+          address: "11111111111111111111111111111111";
         },
         {
-          "name": "tokenProgram"
+          name: "tokenProgram";
         }
-      ],
-      "args": [
+      ];
+      args: [
         {
-          "name": "title",
-          "type": "string"
+          name: "title";
+          type: "string";
         },
         {
-          "name": "description",
-          "type": "string"
+          name: "description";
+          type: "string";
         },
         {
-          "name": "url",
-          "type": "string"
+          name: "url";
+          type: "string";
         },
         {
-          "name": "targetAmount",
-          "type": "u64"
+          name: "targetAmount";
+          type: "u64";
         },
         {
-          "name": "startTimestamp",
-          "type": "u64"
+          name: "startTimestamp";
+          type: "u64";
         },
         {
-          "name": "endTimestamp",
-          "type": "u64"
+          name: "endTimestamp";
+          type: "u64";
         }
-      ]
+      ];
     },
     {
-      "name": "donate",
-      "discriminator": [
-        121,
-        186,
-        218,
-        211,
-        73,
-        70,
-        196,
-        180
-      ],
-      "accounts": [
+      name: "donate";
+      discriminator: [121, 186, 218, 211, 73, 70, 196, 180];
+      accounts: [
         {
-          "name": "signer",
-          "writable": true,
-          "signer": true
+          name: "signer";
+          writable: true;
+          signer: true;
         },
         {
-          "name": "admin",
-          "writable": true
+          name: "admin";
+          writable: true;
         },
         {
-          "name": "campaignAdmin"
+          name: "campaignAdmin";
         },
         {
-          "name": "config",
-          "writable": true,
-          "pda": {
-            "seeds": [
+          name: "config";
+          writable: true;
+          pda: {
+            seeds: [
               {
-                "kind": "const",
-                "value": [
-                  99,
-                  111,
-                  110,
-                  102,
-                  105,
-                  103
-                ]
+                kind: "const";
+                value: [99, 111, 110, 102, 105, 103];
               },
               {
-                "kind": "account",
-                "path": "config.seed",
-                "account": "config"
+                kind: "account";
+                path: "config.seed";
+                account: "config";
               }
-            ]
-          }
+            ];
+          };
         },
         {
-          "name": "campaign",
-          "writable": true,
-          "pda": {
-            "seeds": [
+          name: "campaign";
+          writable: true;
+          pda: {
+            seeds: [
               {
-                "kind": "const",
-                "value": [
-                  99,
-                  97,
-                  109,
-                  112,
-                  97,
-                  105,
-                  103,
-                  110
-                ]
+                kind: "const";
+                value: [99, 97, 109, 112, 97, 105, 103, 110];
               },
               {
-                "kind": "account",
-                "path": "campaign.title",
-                "account": "campaign"
+                kind: "account";
+                path: "campaign.title";
+                account: "campaign";
               },
               {
-                "kind": "account",
-                "path": "campaignAdmin"
+                kind: "account";
+                path: "campaignAdmin";
               }
-            ]
-          }
+            ];
+          };
         },
         {
-          "name": "campaignVault",
-          "writable": true,
-          "pda": {
-            "seeds": [
+          name: "vault";
+          writable: true;
+          pda: {
+            seeds: [
               {
-                "kind": "const",
-                "value": [
+                kind: "const";
+                value: [
                   99,
                   97,
                   109,
@@ -421,97 +322,72 @@ export type Crowdfi = {
                   117,
                   108,
                   116
-                ]
+                ];
               },
               {
-                "kind": "account",
-                "path": "campaign"
+                kind: "account";
+                path: "campaign";
               }
-            ]
-          }
+            ];
+          };
         },
         {
-          "name": "campaignRewardMint",
-          "writable": true,
-          "pda": {
-            "seeds": [
+          name: "rewardMint";
+          writable: true;
+          pda: {
+            seeds: [
               {
-                "kind": "const",
-                "value": [
-                  114,
-                  101,
-                  119,
-                  97,
-                  114,
-                  100,
-                  95,
-                  109,
-                  105,
-                  110,
-                  116
-                ]
+                kind: "const";
+                value: [114, 101, 119, 97, 114, 100, 95, 109, 105, 110, 116];
               },
               {
-                "kind": "account",
-                "path": "campaign"
+                kind: "account";
+                path: "campaign";
               }
-            ]
-          }
+            ];
+          };
         },
         {
-          "name": "userRewardAta",
-          "writable": true,
-          "pda": {
-            "seeds": [
+          name: "donationInfo";
+          writable: true;
+          pda: {
+            seeds: [
               {
-                "kind": "account",
-                "path": "signer"
+                kind: "const";
+                value: [100, 111, 110, 97, 116, 105, 111, 110];
               },
               {
-                "kind": "const",
-                "value": [
-                  6,
-                  221,
-                  246,
-                  225,
-                  215,
-                  101,
-                  161,
-                  147,
-                  217,
-                  203,
-                  225,
-                  70,
-                  206,
-                  235,
-                  121,
-                  172,
-                  28,
-                  180,
-                  133,
-                  237,
-                  95,
-                  91,
-                  55,
-                  145,
-                  58,
-                  140,
-                  245,
-                  133,
-                  126,
-                  255,
-                  0,
-                  169
-                ]
+                kind: "account";
+                path: "signer";
               },
               {
-                "kind": "account",
-                "path": "campaignRewardMint"
+                kind: "account";
+                path: "campaign";
               }
-            ],
-            "program": {
-              "kind": "const",
-              "value": [
+            ];
+          };
+        },
+        {
+          name: "userRewardAta";
+          writable: true;
+          pda: {
+            seeds: [
+              {
+                kind: "account";
+                path: "signer";
+              },
+              {
+                kind: "account";
+                path: "tokenProgram";
+              },
+              {
+                kind: "account";
+                path: "rewardMint";
+              }
+            ];
+            program: {
+              kind: "const";
+              value: [
                 140,
                 151,
                 37,
@@ -544,147 +420,113 @@ export type Crowdfi = {
                 233,
                 248,
                 89
-              ]
-            }
-          }
+              ];
+            };
+          };
         },
         {
-          "name": "systemProgram",
-          "address": "11111111111111111111111111111111"
+          name: "systemProgram";
+          address: "11111111111111111111111111111111";
         },
         {
-          "name": "tokenProgram"
+          name: "tokenProgram";
         },
         {
-          "name": "associatedTokenProgram",
-          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+          name: "associatedTokenProgram";
+          address: "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL";
         }
-      ],
-      "args": [
+      ];
+      args: [
         {
-          "name": "amount",
-          "type": "u64"
+          name: "amount";
+          type: "u64";
         }
-      ]
+      ];
     },
     {
-      "name": "initializeConfig",
-      "discriminator": [
-        208,
-        127,
-        21,
-        1,
-        194,
-        190,
-        196,
-        70
-      ],
-      "accounts": [
+      name: "initializeConfig";
+      discriminator: [208, 127, 21, 1, 194, 190, 196, 70];
+      accounts: [
         {
-          "name": "admin",
-          "writable": true,
-          "signer": true
+          name: "admin";
+          writable: true;
+          signer: true;
         },
         {
-          "name": "config",
-          "writable": true,
-          "pda": {
-            "seeds": [
+          name: "config";
+          writable: true;
+          pda: {
+            seeds: [
               {
-                "kind": "const",
-                "value": [
-                  99,
-                  111,
-                  110,
-                  102,
-                  105,
-                  103
-                ]
+                kind: "const";
+                value: [99, 111, 110, 102, 105, 103];
               },
               {
-                "kind": "arg",
-                "path": "seed"
+                kind: "arg";
+                path: "seed";
               }
-            ]
-          }
+            ];
+          };
         },
         {
-          "name": "systemProgram",
-          "address": "11111111111111111111111111111111"
+          name: "systemProgram";
+          address: "11111111111111111111111111111111";
         }
-      ],
-      "args": [
+      ];
+      args: [
         {
-          "name": "seed",
-          "type": "u64"
+          name: "seed";
+          type: "u64";
         },
         {
-          "name": "maxDuration",
-          "type": "u64"
+          name: "maxDuration";
+          type: "u64";
         },
         {
-          "name": "maxAmount",
-          "type": "u64"
+          name: "maxAmount";
+          type: "u64";
         }
-      ]
+      ];
     },
     {
-      "name": "refund",
-      "discriminator": [
-        2,
-        96,
-        183,
-        251,
-        63,
-        208,
-        46,
-        46
-      ],
-      "accounts": [
+      name: "refund";
+      discriminator: [2, 96, 183, 251, 63, 208, 46, 46];
+      accounts: [
         {
-          "name": "signer",
-          "writable": true,
-          "signer": true
+          name: "signer";
+          writable: true;
+          signer: true;
         },
         {
-          "name": "campaign",
-          "writable": true,
-          "pda": {
-            "seeds": [
+          name: "campaign";
+          writable: true;
+          pda: {
+            seeds: [
               {
-                "kind": "const",
-                "value": [
-                  99,
-                  97,
-                  109,
-                  112,
-                  97,
-                  105,
-                  103,
-                  110
-                ]
+                kind: "const";
+                value: [99, 97, 109, 112, 97, 105, 103, 110];
               },
               {
-                "kind": "account",
-                "path": "campaign.title",
-                "account": "campaign"
+                kind: "account";
+                path: "campaign.title";
+                account: "campaign";
               },
               {
-                "kind": "account",
-                "path": "campaign.admin",
-                "account": "campaign"
+                kind: "account";
+                path: "campaign.admin";
+                account: "campaign";
               }
-            ]
-          }
+            ];
+          };
         },
         {
-          "name": "campaignVault",
-          "writable": true,
-          "pda": {
-            "seeds": [
+          name: "vault";
+          writable: true;
+          pda: {
+            seeds: [
               {
-                "kind": "const",
-                "value": [
+                kind: "const";
+                value: [
                   99,
                   97,
                   109,
@@ -699,97 +541,72 @@ export type Crowdfi = {
                   117,
                   108,
                   116
-                ]
+                ];
               },
               {
-                "kind": "account",
-                "path": "campaign"
+                kind: "account";
+                path: "campaign";
               }
-            ]
-          }
+            ];
+          };
         },
         {
-          "name": "rewardMint",
-          "writable": true,
-          "pda": {
-            "seeds": [
+          name: "rewardMint";
+          writable: true;
+          pda: {
+            seeds: [
               {
-                "kind": "const",
-                "value": [
-                  114,
-                  101,
-                  119,
-                  97,
-                  114,
-                  100,
-                  95,
-                  109,
-                  105,
-                  110,
-                  116
-                ]
+                kind: "const";
+                value: [114, 101, 119, 97, 114, 100, 95, 109, 105, 110, 116];
               },
               {
-                "kind": "account",
-                "path": "campaign"
+                kind: "account";
+                path: "campaign";
               }
-            ]
-          }
+            ];
+          };
         },
         {
-          "name": "userRewardAta",
-          "writable": true,
-          "pda": {
-            "seeds": [
+          name: "donationInfo";
+          writable: true;
+          pda: {
+            seeds: [
               {
-                "kind": "account",
-                "path": "signer"
+                kind: "const";
+                value: [100, 111, 110, 97, 116, 105, 111, 110];
               },
               {
-                "kind": "const",
-                "value": [
-                  6,
-                  221,
-                  246,
-                  225,
-                  215,
-                  101,
-                  161,
-                  147,
-                  217,
-                  203,
-                  225,
-                  70,
-                  206,
-                  235,
-                  121,
-                  172,
-                  28,
-                  180,
-                  133,
-                  237,
-                  95,
-                  91,
-                  55,
-                  145,
-                  58,
-                  140,
-                  245,
-                  133,
-                  126,
-                  255,
-                  0,
-                  169
-                ]
+                kind: "account";
+                path: "signer";
               },
               {
-                "kind": "account",
-                "path": "rewardMint"
+                kind: "account";
+                path: "campaign";
               }
-            ],
-            "program": {
-              "kind": "const",
-              "value": [
+            ];
+          };
+        },
+        {
+          name: "userRewardAta";
+          writable: true;
+          pda: {
+            seeds: [
+              {
+                kind: "account";
+                path: "signer";
+              },
+              {
+                kind: "account";
+                path: "tokenProgram";
+              },
+              {
+                kind: "account";
+                path: "rewardMint";
+              }
+            ];
+            program: {
+              kind: "const";
+              value: [
                 140,
                 151,
                 37,
@@ -822,214 +639,235 @@ export type Crowdfi = {
                 233,
                 248,
                 89
-              ]
-            }
-          }
+              ];
+            };
+          };
         },
         {
-          "name": "systemProgram",
-          "address": "11111111111111111111111111111111"
+          name: "systemProgram";
+          address: "11111111111111111111111111111111";
         },
         {
-          "name": "tokenProgram"
+          name: "tokenProgram";
         }
-      ],
-      "args": [
+      ];
+      args: [
         {
-          "name": "amount",
-          "type": "u64"
+          name: "amount";
+          type: "u64";
         }
-      ]
+      ];
     },
     {
-      "name": "updateCampaign",
-      "discriminator": [
-        235,
-        31,
-        39,
-        49,
-        121,
-        173,
-        19,
-        92
-      ],
-      "accounts": [
+      name: "updateCampaign";
+      discriminator: [235, 31, 39, 49, 121, 173, 19, 92];
+      accounts: [
         {
-          "name": "admin",
-          "writable": true,
-          "signer": true
+          name: "admin";
+          writable: true;
+          signer: true;
         },
         {
-          "name": "campaign",
-          "writable": true,
-          "pda": {
-            "seeds": [
+          name: "campaign";
+          writable: true;
+          pda: {
+            seeds: [
               {
-                "kind": "const",
-                "value": [
-                  99,
-                  97,
-                  109,
-                  112,
-                  97,
-                  105,
-                  103,
-                  110
-                ]
+                kind: "const";
+                value: [99, 97, 109, 112, 97, 105, 103, 110];
               },
               {
-                "kind": "account",
-                "path": "campaign.title",
-                "account": "campaign"
+                kind: "account";
+                path: "campaign.title";
+                account: "campaign";
               },
               {
-                "kind": "account",
-                "path": "campaign.admin",
-                "account": "campaign"
+                kind: "account";
+                path: "campaign.admin";
+                account: "campaign";
               }
-            ]
-          }
+            ];
+          };
         },
         {
-          "name": "systemProgram",
-          "address": "11111111111111111111111111111111"
+          name: "systemProgram";
+          address: "11111111111111111111111111111111";
         }
-      ],
-      "args": [
+      ];
+      args: [
         {
-          "name": "description",
-          "type": {
-            "option": "string"
-          }
+          name: "description";
+          type: {
+            option: "string";
+          };
         },
         {
-          "name": "url",
-          "type": {
-            "option": "string"
-          }
+          name: "url";
+          type: {
+            option: "string";
+          };
         }
-      ]
+      ];
     }
-  ],
-  "accounts": [
+  ];
+  accounts: [
     {
-      "name": "campaign",
-      "discriminator": [
-        50,
-        40,
-        49,
-        11,
-        157,
-        220,
-        229,
-        192
-      ]
+      name: "campaign";
+      discriminator: [50, 40, 49, 11, 157, 220, 229, 192];
     },
     {
-      "name": "config",
-      "discriminator": [
-        155,
-        12,
-        170,
-        224,
-        30,
-        250,
-        204,
-        130
-      ]
-    }
-  ],
-  "errors": [
-    {
-      "code": 6000,
-      "name": "campaignTargetNotMet",
-      "msg": "Campaign has not met it target"
-    }
-  ],
-  "types": [
-    {
-      "name": "campaign",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "admin",
-            "type": "pubkey"
-          },
-          {
-            "name": "title",
-            "type": "string"
-          },
-          {
-            "name": "description",
-            "type": "string"
-          },
-          {
-            "name": "url",
-            "type": "string"
-          },
-          {
-            "name": "startTimestamp",
-            "type": "u64"
-          },
-          {
-            "name": "endTimestamp",
-            "type": "u64"
-          },
-          {
-            "name": "targetAmount",
-            "type": "u64"
-          },
-          {
-            "name": "currentAmount",
-            "type": "u64"
-          },
-          {
-            "name": "bump",
-            "type": "u8"
-          },
-          {
-            "name": "vaultBump",
-            "type": "u8"
-          },
-          {
-            "name": "rewardMintBump",
-            "type": "u8"
-          }
-        ]
-      }
+      name: "config";
+      discriminator: [155, 12, 170, 224, 30, 250, 204, 130];
     },
     {
-      "name": "config",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "admin",
-            "type": "pubkey"
-          },
-          {
-            "name": "maxDuration",
-            "type": "u64"
-          },
-          {
-            "name": "maxAmount",
-            "type": "u64"
-          },
-          {
-            "name": "fee",
-            "type": "u16"
-          },
-          {
-            "name": "bump",
-            "type": "u8"
-          },
-          {
-            "name": "seed",
-            "type": "u64"
-          }
-        ]
-      }
+      name: "donation";
+      discriminator: [189, 210, 54, 77, 216, 85, 7, 68];
     }
-  ]
+  ];
+  errors: [
+    {
+      code: 6000;
+      name: "customError";
+      msg: "Custom Error";
+    },
+    {
+      code: 6001;
+      name: "campaignTargetNotMet";
+      msg: "Campaign has not met it target";
+    },
+    {
+      code: 6002;
+      name: "campaignIsCompleted";
+      msg: "Campaign has been completed already";
+    },
+    {
+      code: 6003;
+      name: "campaignTitleIsTooLong";
+      msg: "Campaign Title is Too Long";
+    },
+    {
+      code: 6004;
+      name: "campaignDescriptionIsTooLong";
+      msg: "Campaign Description is Too Long";
+    },
+    {
+      code: 6005;
+      name: "campaignUrlIsTooLong";
+      msg: "Campaign URL is Too Long";
+    }
+  ];
+  types: [
+    {
+      name: "campaign";
+      type: {
+        kind: "struct";
+        fields: [
+          {
+            name: "admin";
+            type: "pubkey";
+          },
+          {
+            name: "config";
+            type: "pubkey";
+          },
+          {
+            name: "title";
+            type: "string";
+          },
+          {
+            name: "description";
+            type: "string";
+          },
+          {
+            name: "url";
+            type: "string";
+          },
+          {
+            name: "startTimestamp";
+            type: "u64";
+          },
+          {
+            name: "endTimestamp";
+            type: "u64";
+          },
+          {
+            name: "targetAmount";
+            type: "u64";
+          },
+          {
+            name: "currentAmount";
+            type: "u64";
+          },
+          {
+            name: "bump";
+            type: "u8";
+          },
+          {
+            name: "vaultBump";
+            type: "u8";
+          },
+          {
+            name: "rewardMintBump";
+            type: "u8";
+          },
+          {
+            name: "isCompleted";
+            type: "bool";
+          }
+        ];
+      };
+    },
+    {
+      name: "config";
+      type: {
+        kind: "struct";
+        fields: [
+          {
+            name: "admin";
+            type: "pubkey";
+          },
+          {
+            name: "maxDuration";
+            type: "u64";
+          },
+          {
+            name: "maxAmount";
+            type: "u64";
+          },
+          {
+            name: "fee";
+            type: "u16";
+          },
+          {
+            name: "bump";
+            type: "u8";
+          },
+          {
+            name: "seed";
+            type: "u64";
+          }
+        ];
+      };
+    },
+    {
+      name: "donation";
+      type: {
+        kind: "struct";
+        fields: [
+          {
+            name: "authority";
+            type: "pubkey";
+          },
+          {
+            name: "amount";
+            type: "u64";
+          },
+          {
+            name: "bump";
+            type: "u8";
+          }
+        ];
+      };
+    }
+  ];
 };

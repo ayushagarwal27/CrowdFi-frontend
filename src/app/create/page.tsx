@@ -7,6 +7,9 @@ import programInfo from "@/constants/programInfo";
 import { BN } from "bn.js";
 import { PublicKey } from "@solana/web3.js";
 import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
+import { useTransactionToast } from "@/components/ui/ui-layout";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const CreateCampaign = () => {
   const wallet = useWallet();
@@ -26,6 +29,10 @@ const CreateCampaign = () => {
 
   const anchorProvider = getProvider(connection, wallet);
   const program = new Program(programInfo.idl_object, anchorProvider);
+
+  const transactionToast = useTransactionToast();
+  const router = useRouter();
+
   useEffect(() => {
     async function getAllConfigAccounts() {
       // @ts-ignore
@@ -47,35 +54,44 @@ const CreateCampaign = () => {
     ) {
       return;
     }
-    const configKey = configs.find(
+    const config = configs.find(
       // @ts-ignore
       (cf) => cf.account.seed.toString() === selectedConfig
       // @ts-ignore
-    )?.publicKey;
+    );
     const startTimeSamp = new Date(startDate).getMilliseconds();
     const endTimeSamp = new Date(endDate).getMilliseconds();
 
-    const tx = await program.methods
-      .createCampaign(
-        title,
-        description,
-        url,
-        new BN(targetAmount),
-        new BN(startTimeSamp),
-        new BN(endTimeSamp)
-      )
-      .accountsPartial({
-        config: configKey,
-        // tokenProgram: TOKEN_2022_PROGRAM_ID,
-        tokenProgram: TOKEN_PROGRAM_ID,
-      })
-      .rpc();
-
-    console.log(tx);
+    try {
+      const tx = await program.methods
+        .createCampaign(
+          title,
+          description,
+          url,
+          new BN(targetAmount),
+          new BN(startTimeSamp),
+          new BN(endTimeSamp)
+        )
+        .accountsPartial({
+          // @ts-ignore
+          config: config.publicKey,
+          // @ts-ignore
+          admin: config.account.admin,
+          // tokenProgram: TOKEN_2022_PROGRAM_ID,
+          tokenProgram: TOKEN_PROGRAM_ID,
+        })
+        .rpc();
+      transactionToast(tx);
+      router.push("/all");
+    } catch (err) {
+      toast.error(`${err}`);
+    }
+    // console.log(configKey);
+    // console.log(tx);
   }
   return (
     <div
-      className={"h-full w-full mt-[100px]  flex justify-center items-center"}
+      className={"h-full w-full mt-[60px]  flex justify-center items-center"}
     >
       <form
         className={
@@ -113,9 +129,7 @@ const CreateCampaign = () => {
         </label>
         <input
           type="number"
-          min={0.1}
-          step={0.5}
-          max={2000}
+          min={1}
           placeholder="Target Amount"
           className="input input-bordered input-ghost  w-full text-gray-400 "
           value={targetAmount}

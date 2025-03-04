@@ -42,9 +42,9 @@ export async function initializeConfig(
         config: config,
       })
       .rpc();
-    console.log(tx);
+    return tx;
   } catch (err) {
     // @ts-ignore
-    console.log(err);
+    throw err;
   }
 }

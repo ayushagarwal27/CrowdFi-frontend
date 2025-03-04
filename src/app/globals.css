@@ -29,3 +29,17 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   background-color: #00a96e;
   color: white;
 }
+
+.input:has(> input[disabled]),
+.input-disabled,
+.input:disabled,
+.input[disabled] {
+  background-color: rgb(104, 129, 118);
+}
+
+.btn.btn-disabled,
+.btn[disabled],
+.btn:disabled {
+  background-color: rgb(119, 146, 134);
+  cursor: not-allowed important!;
+}

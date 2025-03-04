@@ -8,7 +8,8 @@ const Page = () => {
           Crowd-Funding App
         </h1>
         <p className="mt-8 text-pretty text-lg font-medium text-green-800 sm:text-xl/8">
-          On chain crowd funding app
+         { `Empowering Visionaries Through Community-Driven Funding—Where Great
+          Ideas Take Flight On Solana's Lightning-Fast Blockchain.`}
         </p>
       </div>
     </div>

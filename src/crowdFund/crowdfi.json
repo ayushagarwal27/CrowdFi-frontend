@@ -1,5 +1,5 @@
 {
-  "address": "5NexZGyNMGAwBss3RmNFCDamhTQVbsWkbpvFSLED5wLv",
+  "address": "GMvQJy82KJryDR6nk2WEti4oYTLJjFKH2EbsdSjtgSMu",
   "metadata": {
     "name": "crowdfi",
     "version": "0.1.0",
@@ -9,16 +9,7 @@
   "instructions": [
     {
       "name": "close_campaign",
-      "discriminator": [
-        65,
-        49,
-        110,
-        7,
-        63,
-        238,
-        206,
-        77
-      ],
+      "discriminator": [65, 49, 110, 7, 63, 238, 206, 77],
       "accounts": [
         {
           "name": "signer",
@@ -32,14 +23,7 @@
             "seeds": [
               {
                 "kind": "const",
-                "value": [
-                  99,
-                  111,
-                  110,
-                  102,
-                  105,
-                  103
-                ]
+                "value": [99, 111, 110, 102, 105, 103]
               },
               {
                 "kind": "account",
@@ -56,16 +40,7 @@
             "seeds": [
               {
                 "kind": "const",
-                "value": [
-                  99,
-                  97,
-                  109,
-                  112,
-                  97,
-                  105,
-                  103,
-                  110
-                ]
+                "value": [99, 97, 109, 112, 97, 105, 103, 110]
               },
               {
                 "kind": "account",
@@ -88,19 +63,7 @@
               {
                 "kind": "const",
                 "value": [
-                  99,
-                  97,
-                  109,
-                  112,
-                  97,
-                  105,
-                  103,
-                  110,
-                  95,
-                  118,
-                  97,
-                  117,
-                  108,
+                  99, 97, 109, 112, 97, 105, 103, 110, 95, 118, 97, 117, 108,
                   116
                 ]
               },
@@ -118,19 +81,7 @@
             "seeds": [
               {
                 "kind": "const",
-                "value": [
-                  114,
-                  101,
-                  119,
-                  97,
-                  114,
-                  100,
-                  95,
-                  109,
-                  105,
-                  110,
-                  116
-                ]
+                "value": [114, 101, 119, 97, 114, 100, 95, 109, 105, 110, 116]
               },
               {
                 "kind": "account",
@@ -151,16 +102,7 @@
     },
     {
       "name": "create_campaign",
-      "discriminator": [
-        111,
-        131,
-        187,
-        98,
-        160,
-        193,
-        114,
-        244
-      ],
+      "discriminator": [111, 131, 187, 98, 160, 193, 114, 244],
       "accounts": [
         {
           "name": "admin",
@@ -174,14 +116,7 @@
             "seeds": [
               {
                 "kind": "const",
-                "value": [
-                  99,
-                  111,
-                  110,
-                  102,
-                  105,
-                  103
-                ]
+                "value": [99, 111, 110, 102, 105, 103]
               },
               {
                 "kind": "account",
@@ -198,16 +133,7 @@
             "seeds": [
               {
                 "kind": "const",
-                "value": [
-                  99,
-                  97,
-                  109,
-                  112,
-                  97,
-                  105,
-                  103,
-                  110
-                ]
+                "value": [99, 97, 109, 112, 97, 105, 103, 110]
               },
               {
                 "kind": "arg",
@@ -221,26 +147,14 @@
           }
         },
         {
-          "name": "campaign_vault",
+          "name": "vault",
           "writable": true,
           "pda": {
             "seeds": [
               {
                 "kind": "const",
                 "value": [
-                  99,
-                  97,
-                  109,
-                  112,
-                  97,
-                  105,
-                  103,
-                  110,
-                  95,
-                  118,
-                  97,
-                  117,
-                  108,
+                  99, 97, 109, 112, 97, 105, 103, 110, 95, 118, 97, 117, 108,
                   116
                 ]
               },
@@ -252,25 +166,13 @@
           }
         },
         {
-          "name": "campaign_reward_mint",
+          "name": "reward_mint",
           "writable": true,
           "pda": {
             "seeds": [
               {
                 "kind": "const",
-                "value": [
-                  114,
-                  101,
-                  119,
-                  97,
-                  114,
-                  100,
-                  95,
-                  109,
-                  105,
-                  110,
-                  116
-                ]
+                "value": [114, 101, 119, 97, 114, 100, 95, 109, 105, 110, 116]
               },
               {
                 "kind": "account",
@@ -316,16 +218,7 @@
     },
     {
       "name": "donate",
-      "discriminator": [
-        121,
-        186,
-        218,
-        211,
-        73,
-        70,
-        196,
-        180
-      ],
+      "discriminator": [121, 186, 218, 211, 73, 70, 196, 180],
       "accounts": [
         {
           "name": "signer",
@@ -346,14 +239,7 @@
             "seeds": [
               {
                 "kind": "const",
-                "value": [
-                  99,
-                  111,
-                  110,
-                  102,
-                  105,
-                  103
-                ]
+                "value": [99, 111, 110, 102, 105, 103]
               },
               {
                 "kind": "account",
@@ -370,16 +256,7 @@
             "seeds": [
               {
                 "kind": "const",
-                "value": [
-                  99,
-                  97,
-                  109,
-                  112,
-                  97,
-                  105,
-                  103,
-                  110
-                ]
+                "value": [99, 97, 109, 112, 97, 105, 103, 110]
               },
               {
                 "kind": "account",
@@ -394,26 +271,14 @@
           }
         },
         {
-          "name": "campaign_vault",
+          "name": "vault",
           "writable": true,
           "pda": {
             "seeds": [
               {
                 "kind": "const",
                 "value": [
-                  99,
-                  97,
-                  109,
-                  112,
-                  97,
-                  105,
-                  103,
-                  110,
-                  95,
-                  118,
-                  97,
-                  117,
-                  108,
+                  99, 97, 109, 112, 97, 105, 103, 110, 95, 118, 97, 117, 108,
                   116
                 ]
               },
@@ -425,25 +290,33 @@
           }
         },
         {
-          "name": "campaign_reward_mint",
+          "name": "reward_mint",
           "writable": true,
           "pda": {
             "seeds": [
               {
                 "kind": "const",
-                "value": [
-                  114,
-                  101,
-                  119,
-                  97,
-                  114,
-                  100,
-                  95,
-                  109,
-                  105,
-                  110,
-                  116
-                ]
+                "value": [114, 101, 119, 97, 114, 100, 95, 109, 105, 110, 116]
+              },
+              {
+                "kind": "account",
+                "path": "campaign"
+              }
+            ]
+          }
+        },
+        {
+          "name": "donation_info",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [100, 111, 110, 97, 116, 105, 111, 110]
+              },
+              {
+                "kind": "account",
+                "path": "signer"
               },
               {
                 "kind": "account",
@@ -462,82 +335,20 @@
                 "path": "signer"
               },
               {
-                "kind": "const",
-                "value": [
-                  6,
-                  221,
-                  246,
-                  225,
-                  215,
-                  101,
-                  161,
-                  147,
-                  217,
-                  203,
-                  225,
-                  70,
-                  206,
-                  235,
-                  121,
-                  172,
-                  28,
-                  180,
-                  133,
-                  237,
-                  95,
-                  91,
-                  55,
-                  145,
-                  58,
-                  140,
-                  245,
-                  133,
-                  126,
-                  255,
-                  0,
-                  169
-                ]
+                "kind": "account",
+                "path": "token_program"
               },
               {
                 "kind": "account",
-                "path": "campaign_reward_mint"
+                "path": "reward_mint"
               }
             ],
             "program": {
               "kind": "const",
               "value": [
-                140,
-                151,
-                37,
-                143,
-                78,
-                36,
-                137,
-                241,
-                187,
-                61,
-                16,
-                41,
-                20,
-                142,
-                13,
-                131,
-                11,
-                90,
-                19,
-                153,
-                218,
-                255,
-                16,
-                132,
-                4,
-                142,
-                123,
-                216,
-                219,
-                233,
-                248,
-                89
+                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142,
+                13, 131, 11, 90, 19, 153, 218, 255, 16, 132, 4, 142, 123, 216,
+                219, 233, 248, 89
               ]
             }
           }
@@ -563,16 +374,7 @@
     },
     {
       "name": "initialize_config",
-      "discriminator": [
-        208,
-        127,
-        21,
-        1,
-        194,
-        190,
-        196,
-        70
-      ],
+      "discriminator": [208, 127, 21, 1, 194, 190, 196, 70],
       "accounts": [
         {
           "name": "admin",
@@ -586,14 +388,7 @@
             "seeds": [
               {
                 "kind": "const",
-                "value": [
-                  99,
-                  111,
-                  110,
-                  102,
-                  105,
-                  103
-                ]
+                "value": [99, 111, 110, 102, 105, 103]
               },
               {
                 "kind": "arg",
@@ -624,16 +419,7 @@
     },
     {
       "name": "refund",
-      "discriminator": [
-        2,
-        96,
-        183,
-        251,
-        63,
-        208,
-        46,
-        46
-      ],
+      "discriminator": [2, 96, 183, 251, 63, 208, 46, 46],
       "accounts": [
         {
           "name": "signer",
@@ -647,16 +433,7 @@
             "seeds": [
               {
                 "kind": "const",
-                "value": [
-                  99,
-                  97,
-                  109,
-                  112,
-                  97,
-                  105,
-                  103,
-                  110
-                ]
+                "value": [99, 97, 109, 112, 97, 105, 103, 110]
               },
               {
                 "kind": "account",
@@ -672,26 +449,14 @@
           }
         },
         {
-          "name": "campaign_vault",
+          "name": "vault",
           "writable": true,
           "pda": {
             "seeds": [
               {
                 "kind": "const",
                 "value": [
-                  99,
-                  97,
-                  109,
-                  112,
-                  97,
-                  105,
-                  103,
-                  110,
-                  95,
-                  118,
-                  97,
-                  117,
-                  108,
+                  99, 97, 109, 112, 97, 105, 103, 110, 95, 118, 97, 117, 108,
                   116
                 ]
               },
@@ -709,19 +474,27 @@
             "seeds": [
               {
                 "kind": "const",
-                "value": [
-                  114,
-                  101,
-                  119,
-                  97,
-                  114,
-                  100,
-                  95,
-                  109,
-                  105,
-                  110,
-                  116
-                ]
+                "value": [114, 101, 119, 97, 114, 100, 95, 109, 105, 110, 116]
+              },
+              {
+                "kind": "account",
+                "path": "campaign"
+              }
+            ]
+          }
+        },
+        {
+          "name": "donation_info",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [100, 111, 110, 97, 116, 105, 111, 110]
+              },
+              {
+                "kind": "account",
+                "path": "signer"
               },
               {
                 "kind": "account",
@@ -740,41 +513,8 @@
                 "path": "signer"
               },
               {
-                "kind": "const",
-                "value": [
-                  6,
-                  221,
-                  246,
-                  225,
-                  215,
-                  101,
-                  161,
-                  147,
-                  217,
-                  203,
-                  225,
-                  70,
-                  206,
-                  235,
-                  121,
-                  172,
-                  28,
-                  180,
-                  133,
-                  237,
-                  95,
-                  91,
-                  55,
-                  145,
-                  58,
-                  140,
-                  245,
-                  133,
-                  126,
-                  255,
-                  0,
-                  169
-                ]
+                "kind": "account",
+                "path": "token_program"
               },
               {
                 "kind": "account",
@@ -784,38 +524,9 @@
             "program": {
               "kind": "const",
               "value": [
-                140,
-                151,
-                37,
-                143,
-                78,
-                36,
-                137,
-                241,
-                187,
-                61,
-                16,
-                41,
-                20,
-                142,
-                13,
-                131,
-                11,
-                90,
-                19,
-                153,
-                218,
-                255,
-                16,
-                132,
-                4,
-                142,
-                123,
-                216,
-                219,
-                233,
-                248,
-                89
+                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142,
+                13, 131, 11, 90, 19, 153, 218, 255, 16, 132, 4, 142, 123, 216,
+                219, 233, 248, 89
               ]
             }
           }
@@ -837,16 +548,7 @@
     },
     {
       "name": "update_campaign",
-      "discriminator": [
-        235,
-        31,
-        39,
-        49,
-        121,
-        173,
-        19,
-        92
-      ],
+      "discriminator": [235, 31, 39, 49, 121, 173, 19, 92],
       "accounts": [
         {
           "name": "admin",
@@ -860,16 +562,7 @@
             "seeds": [
               {
                 "kind": "const",
-                "value": [
-                  99,
-                  97,
-                  109,
-                  112,
-                  97,
-                  105,
-                  103,
-                  110
-                ]
+                "value": [99, 97, 109, 112, 97, 105, 103, 110]
               },
               {
                 "kind": "account",
@@ -908,36 +601,47 @@
   "accounts": [
     {
       "name": "Campaign",
-      "discriminator": [
-        50,
-        40,
-        49,
-        11,
-        157,
-        220,
-        229,
-        192
-      ]
+      "discriminator": [50, 40, 49, 11, 157, 220, 229, 192]
     },
     {
       "name": "Config",
-      "discriminator": [
-        155,
-        12,
-        170,
-        224,
-        30,
-        250,
-        204,
-        130
-      ]
+      "discriminator": [155, 12, 170, 224, 30, 250, 204, 130]
+    },
+    {
+      "name": "Donation",
+      "discriminator": [189, 210, 54, 77, 216, 85, 7, 68]
     }
   ],
   "errors": [
     {
       "code": 6000,
+      "name": "CustomError",
+      "msg": "Custom Error"
+    },
+    {
+      "code": 6001,
       "name": "CampaignTargetNotMet",
       "msg": "Campaign has not met it target"
+    },
+    {
+      "code": 6002,
+      "name": "CampaignIsCompleted",
+      "msg": "Campaign has been completed already"
+    },
+    {
+      "code": 6003,
+      "name": "CampaignTitleIsTooLong",
+      "msg": "Campaign Title is Too Long"
+    },
+    {
+      "code": 6004,
+      "name": "CampaignDescriptionIsTooLong",
+      "msg": "Campaign Description is Too Long"
+    },
+    {
+      "code": 6005,
+      "name": "CampaignURLIsTooLong",
+      "msg": "Campaign URL is Too Long"
     }
   ],
   "types": [
@@ -948,6 +652,10 @@
         "fields": [
           {
             "name": "admin",
+            "type": "pubkey"
+          },
+          {
+            "name": "config",
             "type": "pubkey"
           },
           {
@@ -989,6 +697,10 @@
           {
             "name": "reward_mint_bump",
             "type": "u8"
+          },
+          {
+            "name": "is_completed",
+            "type": "bool"
           }
         ]
       }
@@ -1021,6 +733,26 @@
           {
             "name": "seed",
             "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Donation",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
           }
         ]
       }

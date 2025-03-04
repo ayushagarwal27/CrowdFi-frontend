@@ -25,11 +25,11 @@ export function UiLayout({
   const pathname = usePathname();
 
   return (
-    <div className="h-full flex flex-col bg-white ">
-      <div className="navbar fixed top-0 left-0 right-0   backdrop-blur-lg z-[10]  max-w-7xl mx-auto  text-neutral-content flex-col md:flex-row space-y-2 md:space-y-0">
+    <div className="h-full flex flex-col ">
+      <div className="navbar fixed top-0 left-0 right-0   backdrop-blur-lg z-[10]  mx-auto  text-neutral-content flex-col md:flex-row space-y-2 md:space-y-0 px-[60px]">
         <div className="flex-1 ">
           <Link className="btn btn-ghost normal-case text-xl" href="/">
-            <h2 className={"text-green-500 text-2xl"}>CrowdsFi</h2>
+            <h2 className={"text-green-500 text-2xl"}>CrowdFi</h2>
           </Link>
           <ul className="menu menu-horizontal px-1 space-x-2">
             {links.map(({ label, path }) => (
@@ -51,9 +51,7 @@ export function UiLayout({
           <ClusterUiSelect />
         </div>
       </div>
-      <ClusterChecker>
-        <AccountChecker />
-      </ClusterChecker>
+
       <Background>
         <Suspense
           fallback={
@@ -66,7 +64,7 @@ export function UiLayout({
         </Suspense>
         <Toaster position="bottom-right" />
       </Background>
-
+      {/* 
       <footer className="footer mt-4 pb-8  footer-center p-4  bg-transparent text-base-content">
         <aside>
           <p>
@@ -81,7 +79,7 @@ export function UiLayout({
             </a>
           </p>
         </aside>
-      </footer>
+      </footer> */}
     </div>
   );
 }

@@ -12,7 +12,7 @@ export const metadata = {
 const links: { label: string; path: string }[] = [
   { label: "All Campaigns", path: "/all" },
   { label: "My Campaigns", path: "/myCampaign" },
-  { label: "My Donations", path: "/donations" },
+  // { label: "My Donations", path: "/donations" },
   { label: "Create Campaign", path: "/create" },
   { label: "Create Config", path: "/config" },
 ];

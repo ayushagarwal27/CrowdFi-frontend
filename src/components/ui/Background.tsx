@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 const Background = ({ children }: { children: ReactNode }) => {
   return (
     <div className="h-full w-full bg-white">
-      <div className="relative isolate px-6 pt-14 lg:px-8">
+      <div className="relative isolate px-6 pt-14 lg:px-8 overflow-y-scroll h-[calc(100vh-10px)] pb-[100px]">
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
           aria-hidden="true"

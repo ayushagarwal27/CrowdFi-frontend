@@ -1,6 +1,26 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
+import programInfo from "@/constants/programInfo";
+
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { Program } from "@coral-xyz/anchor";
+import { getProvider } from "@/calls/calls";
 
 const AllPage = () => {
+  const wallet = useWallet();
+  const { connection } = useConnection();
+  const anchorProvider = getProvider(connection, wallet);
+  const program = new Program(programInfo.idl_object, anchorProvider);
+  useEffect(() => {
+    async function getAllCampaigns() {
+      // @ts-ignore
+      const res = await program.account.donation.all();
+      // setAllCampaigns(res);
+      console.log(res);
+    }
+    getAllCampaigns();
+  }, []);
+
   return (
     <div
       className={
