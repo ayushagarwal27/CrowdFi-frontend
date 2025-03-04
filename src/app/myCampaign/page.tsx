@@ -90,6 +90,13 @@ const AllPage = () => {
             >
               <h2 className="capitalize text-xl text-center text-green-600 relative">
                 {cmp?.account.title}
+                <div
+                  className={`absolute text-green-100  rotate-45 right-[-45px] top-[-20px] badge ${
+                    !cmp.account.isCompleted ? "badge-success" : "badge-error"
+                  }`}
+                >
+                  {!cmp.account.isCompleted ? "Active" : "Closed"}
+                </div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

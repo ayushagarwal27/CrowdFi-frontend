@@ -14,6 +14,7 @@ import {
 } from "../cluster/cluster-ui";
 import { WalletButton } from "../solana/solana-provider";
 import Background from "./Background";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 export function UiLayout({
   children,
@@ -23,6 +24,13 @@ export function UiLayout({
   links: { label: string; path: string }[];
 }) {
   const pathname = usePathname();
+  const wallet = useWallet();
+
+  const isAdmin =
+    wallet.publicKey?.toBase58() ===
+      "9pbLHc6cjTVAphKAUV8AQM9sdY3EvLKwExJFgpSTQRCf" ||
+    wallet.publicKey?.toBase58() ===
+      "4gTWiPwC7AHdsu6BtySRd9KvEZVJmhQJRkB9rNH2P1Kj";
 
   return (
     <div className="h-full flex flex-col ">
@@ -32,18 +40,41 @@ export function UiLayout({
             <h2 className={"text-green-500 text-2xl"}>CrowdFi</h2>
           </Link>
           <ul className="menu menu-horizontal px-1 space-x-2">
-            {links.map(({ label, path }) => (
-              <li key={path}>
-                <Link
-                  className={
-                    pathname.startsWith(path) ? "active" : "text-green-600"
-                  }
-                  href={path}
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
+            {links.map(({ label, path }) => {
+              if (path === "/config") {
+                if (isAdmin) {
+                  return (
+                    <li key={path}>
+                      <Link
+                        className={
+                          pathname.startsWith(path)
+                            ? "active"
+                            : "text-green-600"
+                        }
+                        href={path}
+                      >
+                        {label}
+                      </Link>
+                    </li>
+                  );
+                } else {
+                  return null;
+                }
+              } else {
+                return (
+                  <li key={path}>
+                    <Link
+                      className={
+                        pathname.startsWith(path) ? "active" : "text-green-600"
+                      }
+                      href={path}
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                );
+              }
+            })}
           </ul>
         </div>
         <div className="flex-none space-x-2">

@@ -104,6 +104,13 @@ const AllPage = () => {
           >
             <h2 className="capitalize text-xl text-center text-green-600 relative">
               {cmp?.account.title}
+              <div
+                className={`absolute text-green-100  rotate-45 right-[-45px] top-[-20px] badge ${
+                  !cmp.account.isCompleted ? "badge-success" : "badge-error"
+                }`}
+              >
+                {!cmp.account.isCompleted ? "Active" : "Closed"}
+              </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -168,95 +175,7 @@ const AllPage = () => {
               <input
                 type="number"
                 placeholder="1 SOL"
-                disabled={cmp.account.isCompleted}
-                value={donateAmount}
-                className="input input-bordered w-full max-w-xs bg-green-100"
-                onChange={(e) => setDonateAmount(Number(e.target.value))}
-              />
-              <button
-                disabled={cmp.account.isCompleted}
-                className="btn mt-auto btn-neutral text-white border-none bg-green-900 cus-btn-disabled"
-              >
-                Donate
-              </button>
-            </form>
-          </div>
-        );
-      })}
-      {allCampaign.map((cmp, i) => {
-        return (
-          <div
-            key={i}
-            className={
-              "p-4 bg-white/40  flex gap-4 flex-col min-w-[300px] rounded-lg border-2 border-green-600 hover:shadow-2xl hover:-translate-y-[2px] duration-200 hover:shadow-green-300"
-            }
-          >
-            <h2 className="capitalize text-xl text-center text-green-600 relative">
-              {cmp?.account.title}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                onClick={() => {
-                  window.open(
-                    cmp?.account.url,
-                    "_blank",
-                    "noopener,noreferrer"
-                  );
-                }}
-                className="size-6 absolute right-2 top-0 cursor-pointer"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"
-                />
-              </svg>
-            </h2>
-
-            <p
-              className={
-                " py-4 px-1 mt-auto rounded text-green-800 text-md capitalize"
-              }
-            >
-              {cmp?.account.description}
-            </p>
-            <progress
-              className="progress progress-success w-full"
-              value={
-                (Number(cmp?.account.currentAmount / LAMPORTS_PER_SOL) /
-                  Number(cmp?.account.targetAmount?.toString())) *
-                100
-              }
-              max="100"
-            ></progress>
-            <div className={" mt-[-12px] flex justify-between"}>
-              <p className={"font-semibold text-xs text-green-600"}>
-                Target:{" "}
-                <span className={"text-green-600 text-xs font-normal"}>
-                  {cmp?.account.targetAmount?.toString()} SOL
-                </span>
-              </p>
-              <p className={"font-semibold text-xs text-green-600"}>
-                Raised:{" "}
-                <span className={"text-green-600 text-xs font-normal"}>
-                  {(cmp?.account.currentAmount / LAMPORTS_PER_SOL).toString()}{" "}
-                  SOL
-                </span>
-              </p>
-            </div>
-            <form
-              className="flex gap-4"
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleDonate(cmp);
-              }}
-            >
-              <input
-                type="number"
-                placeholder="1 SOL"
+                min={1}
                 disabled={cmp.account.isCompleted}
                 value={donateAmount}
                 className="input input-bordered w-full max-w-xs bg-green-100"
