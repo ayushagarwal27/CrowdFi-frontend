@@ -36,10 +36,9 @@ const CreateCampaign = () => {
   useEffect(() => {
     async function getAllConfigAccounts() {
       // @ts-ignore
-      const res = await program.account.config.all();
-      console.log(res);
-
-      setConfigs(res);
+      const res = await fetch("/api/config");
+      const data = await res.json();
+      setConfigs(data.data);
     }
     getAllConfigAccounts();
   }, []);
@@ -54,9 +53,10 @@ const CreateCampaign = () => {
     ) {
       return;
     }
+
     const config = configs.find(
       // @ts-ignore
-      (cf) => cf.account.seed.toString() === selectedConfig
+      (cf) => cf.seed === selectedConfig
       // @ts-ignore
     );
     const startTimeSamp = new Date(startDate).getMilliseconds();
@@ -74,20 +74,34 @@ const CreateCampaign = () => {
         )
         .accountsPartial({
           // @ts-ignore
-          config: config.publicKey,
+          config: new PublicKey(config.publicKey),
           // @ts-ignore
-          admin: config.account.admin,
+          admin: new PublicKey(config.admin),
           // tokenProgram: TOKEN_2022_PROGRAM_ID,
           tokenProgram: TOKEN_PROGRAM_ID,
         })
         .rpc();
       transactionToast(tx);
+      await fetch("/api/campaign", {
+        method: "POST",
+        body: JSON.stringify({
+          // @ts-ignore
+          admin: config.admin,
+          // @ts-ignore
+          configKey: config.publicKey,
+          title,
+          description,
+          url,
+          startTimestamp: startTimeSamp.toString(),
+          endTimestamp: endTimeSamp.toString(),
+          targetAmount: targetAmount.toString(),
+          currentAmount: "0",
+        }),
+      });
       router.push("/all");
     } catch (err) {
       toast.error(`${err}`);
     }
-    // console.log(configKey);
-    // console.log(tx);
   }
   return (
     <div
@@ -150,9 +164,9 @@ const CreateCampaign = () => {
               <option
                 key={i}
                 //@ts-ignore
-                value={config.account.seed.toString()}
+                value={config.seed}
                 //@ts-ignore
-              >{`Max Duration: ${config.account.maxDuration.toString()} | Max Amount: ${config.account.maxDuration.toString()}`}</option>
+              >{`Max Duration: ${config.maxDuration} | Max Amount: ${config.maxDuration}`}</option>
             );
           })}
         </select>

@@ -42,7 +42,15 @@ export async function initializeConfig(
         config: config,
       })
       .rpc();
-    return tx;
+    return {
+      tx,
+      seed,
+      maxDurationS: maxDuration.toString(),
+      maxAmountS: maxAmount.toString(),
+      bump: config_bump,
+      fee: 10,
+      configKey: config,
+    };
   } catch (err) {
     // @ts-ignore
     throw err;

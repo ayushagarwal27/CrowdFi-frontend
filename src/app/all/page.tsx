@@ -31,10 +31,11 @@ const AllPage = () => {
   useEffect(() => {
     async function getAllCampaigns() {
       // @ts-ignore
-      const res = await program.account.campaign.all();
-      console.log(res);
+      const res = await fetch("/api/campaigns");
+      const data = await res.json();
+      console.log(data);
 
-      setAllCampaigns(res);
+      setAllCampaigns(data.data);
     }
     getAllCampaigns();
   }, []);
@@ -103,13 +104,13 @@ const AllPage = () => {
             }
           >
             <h2 className="capitalize text-xl text-center text-green-600 relative">
-              {cmp?.account.title}
+              {cmp?.title}
               <div
                 className={`absolute text-green-100  rotate-45 right-[-45px] top-[-20px] badge ${
-                  !cmp.account.isCompleted ? "badge-success" : "badge-error"
+                  !cmp.isCompleted ? "badge-success" : "badge-error"
                 }`}
               >
-                {!cmp.account.isCompleted ? "Active" : "Closed"}
+                {!cmp.isCompleted ? "Active" : "Closed"}
               </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -118,11 +119,7 @@ const AllPage = () => {
                 strokeWidth={1.5}
                 stroke="currentColor"
                 onClick={() => {
-                  window.open(
-                    cmp?.account.url,
-                    "_blank",
-                    "noopener,noreferrer"
-                  );
+                  window.open(cmp?.url, "_blank", "noopener,noreferrer");
                 }}
                 className="size-6 absolute right-2 top-0 cursor-pointer"
               >
@@ -139,13 +136,13 @@ const AllPage = () => {
                 " py-4 px-1 mt-auto rounded text-green-800 text-md capitalize"
               }
             >
-              {cmp?.account.description}
+              {cmp?.description}
             </p>
             <progress
               className="progress progress-success w-full"
               value={
-                (Number(cmp?.account.currentAmount / LAMPORTS_PER_SOL) /
-                  Number(cmp?.account.targetAmount?.toString())) *
+                (Number(Number(cmp?.currentAmount) / LAMPORTS_PER_SOL) /
+                  Number(cmp?.targetAmount)) *
                 100
               }
               max="100"
@@ -154,13 +151,13 @@ const AllPage = () => {
               <p className={"font-semibold text-xs text-green-600"}>
                 Target:{" "}
                 <span className={"text-green-600 text-xs font-normal"}>
-                  {cmp?.account.targetAmount?.toString()} SOL
+                  {cmp?.targetAmount} SOL
                 </span>
               </p>
               <p className={"font-semibold text-xs text-green-600"}>
                 Raised:{" "}
                 <span className={"text-green-600 text-xs font-normal"}>
-                  {(cmp?.account.currentAmount / LAMPORTS_PER_SOL).toString()}{" "}
+                  {(Number(cmp?.currentAmount) / LAMPORTS_PER_SOL).toString()}{" "}
                   SOL
                 </span>
               </p>
@@ -176,13 +173,13 @@ const AllPage = () => {
                 type="number"
                 placeholder="1 SOL"
                 min={1}
-                disabled={cmp.account.isCompleted}
+                disabled={cmp.isCompleted}
                 value={donateAmount}
                 className="input input-bordered w-full max-w-xs bg-green-100"
                 onChange={(e) => setDonateAmount(Number(e.target.value))}
               />
               <button
-                disabled={cmp.account.isCompleted}
+                disabled={cmp.isCompleted}
                 className="btn mt-auto btn-neutral text-white border-none bg-green-900 cus-btn-disabled"
               >
                 Donate

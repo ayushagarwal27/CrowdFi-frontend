@@ -6,7 +6,7 @@ import programInfo from "@/constants/programInfo";
 import { Program } from "@coral-xyz/anchor";
 import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -26,28 +26,42 @@ const AllPage = () => {
   useEffect(() => {
     async function getAllCampaigns() {
       // @ts-ignore
-      const res = await program.account.campaign.all();
-      const myCampaigns = res.filter(
-        // @ts-ignore
-        (cmp) => cmp.account.admin.toBase58() === wallet.publicKey?.toBase58()
+      const res = await fetch(
+        "/api/campaigns?id=" + wallet.publicKey?.toString()
       );
-      console.log(myCampaigns);
-      setAllCampaigns(myCampaigns);
+      const data = await res.json();
+      console.log(data.data);
+      setAllCampaigns(data.data);
     }
-    getAllCampaigns();
-  }, []);
+    if (wallet.publicKey) {
+      getAllCampaigns();
+    }
+  }, [wallet.publicKey]);
 
   async function handleCloseCampaign(cmp) {
+    console.log(cmp);
+
+    const [campaign, _] = PublicKey.findProgramAddressSync(
+      [
+        Buffer.from("campaign"),
+        Buffer.from(cmp.title),
+        new PublicKey(cmp.admin).toBuffer(),
+      ],
+      program.programId
+    );
     try {
       const tx = await program.methods
         .closeCampaign()
         .accountsPartial({
-          config: cmp.account.config,
-          campaign: cmp.publicKey,
+          config: new PublicKey(cmp.configKey),
+          campaign,
           tokenProgram: TOKEN_PROGRAM_ID,
         })
         .rpc();
       transactionToast(tx);
+      await fetch(`/api/campaign?id=${cmp.id}&action=close`, {
+        method: "PATCH",
+      });
       router.push("/all");
     } catch (err) {
       toast.error(`${err}`);
@@ -55,14 +69,30 @@ const AllPage = () => {
   }
 
   async function updateCampaign(cmp) {
+    const [campaign, _] = PublicKey.findProgramAddressSync(
+      [
+        Buffer.from("campaign"),
+        Buffer.from(cmp.title),
+        new PublicKey(cmp.admin).toBuffer(),
+      ],
+      program.programId
+    );
     try {
       const tx = await program.methods
         .updateCampaign(description ? description : null, url ? url : null)
         .accountsPartial({
-          admin: cmp.account.admin,
-          campaign: cmp.publicKey,
+          admin: new PublicKey(cmp.admin),
+          campaign,
         })
         .rpc();
+
+      await fetch(`/api/campaign?id=${cmp.id}&action=update`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          url: url || cmp.url,
+          description: description || cmp.description,
+        }),
+      });
       transactionToast(tx);
       setDescription("");
       setUrl("");
@@ -89,13 +119,13 @@ const AllPage = () => {
               }
             >
               <h2 className="capitalize text-xl text-center text-green-600 relative">
-                {cmp?.account.title}
+                {cmp?.title}
                 <div
                   className={`absolute text-green-100  rotate-45 right-[-45px] top-[-20px] badge ${
-                    !cmp.account.isCompleted ? "badge-success" : "badge-error"
+                    !cmp.isCompleted ? "badge-success" : "badge-error"
                   }`}
                 >
-                  {!cmp.account.isCompleted ? "Active" : "Closed"}
+                  {!cmp.isCompleted ? "Active" : "Closed"}
                 </div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -104,11 +134,7 @@ const AllPage = () => {
                   strokeWidth={1.5}
                   stroke="currentColor"
                   onClick={() => {
-                    window.open(
-                      cmp?.account.url,
-                      "_blank",
-                      "noopener,noreferrer"
-                    );
+                    window.open(cmp?.url, "_blank", "noopener,noreferrer");
                   }}
                   className="size-6 absolute right-2 top-0 cursor-pointer"
                 >
@@ -124,13 +150,13 @@ const AllPage = () => {
                   " py-4 px-1 mt-auto rounded text-green-800 text-md capitalize"
                 }
               >
-                {cmp?.account.description}
+                {cmp?.description}
               </p>
               <progress
                 className="progress progress-success w-full"
                 value={
-                  (Number(cmp?.account.currentAmount / LAMPORTS_PER_SOL) /
-                    Number(cmp?.account.targetAmount?.toString())) *
+                  (Number(Number(cmp?.currentAmount) / LAMPORTS_PER_SOL) /
+                    Number(cmp?.targetAmount)) *
                   100
                 }
                 max="100"
@@ -139,14 +165,14 @@ const AllPage = () => {
                 <p className={"font-semibold text-xs text-green-600"}>
                   Target:{" "}
                   <span className={"text-green-600 text-xs font-normal"}>
-                    {cmp?.account.targetAmount?.toString()} SOL
+                    {cmp?.targetAmount} SOL
                   </span>
                 </p>
                 <p className={"font-semibold text-xs text-green-600"}>
                   Raised:{" "}
                   <span className={"text-green-600 text-xs font-normal"}>
                     {(
-                      cmp?.account.currentAmount / LAMPORTS_PER_SOL
+                      Number(cmp?.currentAmount) / LAMPORTS_PER_SOL
                     )?.toString()}{" "}
                     SOL
                   </span>
@@ -157,13 +183,13 @@ const AllPage = () => {
                   onClick={() => {
                     handleCloseCampaign(cmp);
                   }}
-                  disabled={!!cmp?.account.isCompleted}
+                  disabled={!!cmp?.isCompleted}
                   className="btn w-1/2 mt-auto btn-neutral text-white border-none bg-green-900 cus-btn-disabled"
                 >
                   Close
                 </button>
                 <button
-                  disabled={!!cmp?.account.isCompleted}
+                  disabled={!!cmp?.isCompleted}
                   onClick={() => {
                     setUpdateData(cmp);
                     document.getElementById("my_modal_1").showModal();
@@ -191,7 +217,7 @@ const AllPage = () => {
             maxLength={200}
             placeholder="Description"
             className="textarea textarea-bordered input-ghost text-gray-400   w-full "
-            value={description || updateData?.account?.description}
+            value={description || updateData?.description}
             onChange={(e) => setDescription(e.target.value)}
           />
           <input
@@ -199,7 +225,7 @@ const AllPage = () => {
             maxLength={50}
             placeholder="URL"
             className="input input-bordered input-ghost  text-gray-400    w-full "
-            value={url || updateData?.account?.url}
+            value={url || updateData?.url}
             onChange={(e) => setUrl(e.target.value)}
           />
           <div className="modal-action">

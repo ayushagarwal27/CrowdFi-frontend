@@ -20,13 +20,21 @@ const CreateCampaign = () => {
       return;
     }
     try {
-      const tx = await initializeConfig(
-        connection,
-        wallet,
-        maxDuration,
-        maxAmount
-      );
+      const { tx, seed, maxDurationS, maxAmountS, fee, bump, configKey } =
+        await initializeConfig(connection, wallet, maxDuration, maxAmount);
       transactionToast(tx);
+      await fetch("/api/config", {
+        method: "POST",
+        body: JSON.stringify({
+          publicKey: configKey.toString(),
+          admin: wallet.publicKey?.toString(),
+          seed,
+          maxDuration: maxDurationS,
+          maxAmount: maxAmountS,
+          fee,
+          bump,
+        }),
+      });
       router.push("/all");
     } catch (err) {
       toast.error(`${err}`);
