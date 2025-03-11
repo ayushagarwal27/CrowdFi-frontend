@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./prisma-client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Config {
+  id          String   @id @default(uuid())
+  publicKey   String   @unique
+  admin       String // Represents the Pubkey in your Rust struct
+  maxDuration String // Equivalent to u64 in Rust
+  maxAmount   String // Equivalent to u64 in Rust
+  fee         Int // Equivalent to u16 in Rust
+  bump        Int // Equivalent to u8 in Rust
+  seed        String   @unique // Equivalent to u64 in Rust
+  createdAt   DateTime @default(now())
+
+  // Relations - Add any related models here
+  campaigns Campaign[]
+}
+
+// Campaign model based on the provided Rust struct
+model Campaign {
+  id             String   @id @default(uuid())
+  admin          String // Pubkey
+  configKey      String // Pubkey reference to Config
+  title          String   @db.VarChar(250)
+  description    String   @db.VarChar(250)
+  url            String   @db.VarChar(250)
+  startTimestamp String // u64
+  endTimestamp   String // u64
+  targetAmount   String // u64
+  currentAmount  String // u64
+  isCompleted    Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relation to Config
+  config Config? @relation(fields: [configKey], references: [publicKey])
+}
