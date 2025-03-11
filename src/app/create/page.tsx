@@ -20,6 +20,7 @@ const CreateCampaign = () => {
   const [targetAmount, setTargetAmount] = useState(0);
   const [configs, setConfigs] = useState([]);
   const [selectedConfig, setSelectedConfig] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [startDate, setStartDate] = useState(
     new Date().toISOString().split("T")[0]
   );
@@ -47,6 +48,7 @@ const CreateCampaign = () => {
 
   async function createCampaign(e: FormEvent) {
     e.preventDefault();
+    setIsLoading(true);
     if (
       (!title || !description || !url || !targetAmount || !selectedConfig) &&
       startDate >= endDate
@@ -101,6 +103,8 @@ const CreateCampaign = () => {
       router.push("/all");
     } catch (err) {
       toast.error(`${err}`);
+    } finally {
+      setIsLoading(false);
     }
   }
   return (
@@ -200,8 +204,15 @@ const CreateCampaign = () => {
             />
           </div>
         </div>
-        <button className={"btn bg-green-700 text-white self-stretch"}>
-          Create
+        <button
+          className={"btn bg-green-700 text-white self-stretch"}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <span className="loading loading-spinner text-accent"></span>
+          ) : (
+            "Create"
+          )}
         </button>
       </form>
     </div>

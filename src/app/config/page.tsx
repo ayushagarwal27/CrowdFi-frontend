@@ -13,9 +13,11 @@ const CreateCampaign = () => {
   const [maxAmount, setMaxAmount] = useState(0);
   const [maxDuration, setMaxDuration] = useState(0);
   const transactionToast = useTransactionToast();
+  const [isLoading, setIsLoading] = useState(false);
 
   async function createConfig(e: FormEvent) {
     e.preventDefault();
+    setIsLoading(true);
     if (!maxAmount || !maxDuration) {
       return;
     }
@@ -38,6 +40,8 @@ const CreateCampaign = () => {
       router.push("/all");
     } catch (err) {
       toast.error(`${err}`);
+    } finally {
+      setIsLoading(false);
     }
   }
   return (
@@ -76,8 +80,15 @@ const CreateCampaign = () => {
           onChange={(e) => setMaxAmount(Number(e.target.value))}
         />
 
-        <button className={"btn bg-green-700 text-white self-stretch"}>
-          Create
+        <button
+          className={"btn bg-green-700 text-white self-stretch"}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <span className="loading loading-spinner text-accent"></span>
+          ) : (
+            "Create"
+          )}
         </button>
       </form>
     </div>

@@ -199,20 +199,28 @@ const AllPage = () => {
                   onClick={() => {
                     handleCloseCampaign(cmp);
                   }}
-                  disabled={!!cmp?.isCompleted}
+                  disabled={!!cmp?.isCompleted || isLoadingAction}
                   className="btn w-1/2 mt-auto btn-neutral text-white border-none bg-green-900 cus-btn-disabled"
                 >
-                  Close
+                  {isLoadingAction ? (
+                    <span className="loading loading-spinner text-accent"></span>
+                  ) : (
+                    "Close"
+                  )}
                 </button>
                 <button
-                  disabled={!!cmp?.isCompleted}
+                  disabled={!!cmp?.isCompleted || isLoadingAction}
                   onClick={() => {
                     setUpdateData(cmp);
                     setIsModalOpen(true);
                   }}
                   className="btn w-1/2 mt-auto btn-neutral text-white border-none bg-green-900 cus-btn-disabled"
                 >
-                  Update
+                  {isLoadingAction ? (
+                    <span className="loading loading-spinner text-accent"></span>
+                  ) : (
+                    "Update"
+                  )}
                 </button>
               </div>
             </div>

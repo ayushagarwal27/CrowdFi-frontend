@@ -21,6 +21,7 @@ const AllPage = () => {
   const [donateAmount, setDonateAmount] = useState(0);
   const [allCampaign, setAllCampaigns] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDonateLoading, setDonateIsLoading] = useState(false);
 
   const wallet = useWallet();
   const { connection } = useConnection();
@@ -49,6 +50,7 @@ const AllPage = () => {
   }, []);
 
   async function handleDonate(cmp) {
+    setDonateIsLoading(true);
     const [campaign, campaign_bump] = PublicKey.findProgramAddressSync(
       [
         Buffer.from("campaign"),
@@ -105,6 +107,8 @@ const AllPage = () => {
       getAllCampaigns();
     } catch (err) {
       toast.error(`${err}`);
+    } finally {
+      setDonateIsLoading(false);
     }
   }
 
@@ -192,16 +196,20 @@ const AllPage = () => {
                 type="number"
                 placeholder="1 SOL"
                 min={1}
-                disabled={cmp.isCompleted}
+                disabled={cmp.isCompleted || isDonateLoading}
                 value={donateAmount}
                 className="input input-bordered w-full max-w-xs bg-green-100"
                 onChange={(e) => setDonateAmount(Number(e.target.value))}
               />
               <button
-                disabled={cmp.isCompleted}
+                disabled={cmp.isCompleted || isDonateLoading}
                 className="btn mt-auto btn-neutral text-white border-none bg-green-900 cus-btn-disabled"
               >
-                Donate
+                {isDonateLoading ? (
+                  <span className="loading loading-spinner text-accent"></span>
+                ) : (
+                  "Donate"
+                )}
               </button>
             </form>
           </div>
