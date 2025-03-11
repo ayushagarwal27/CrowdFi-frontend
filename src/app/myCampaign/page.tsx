@@ -8,7 +8,8 @@ import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { toNamespacedPath } from "node:path/win32";
+import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 const AllPage = () => {
@@ -22,9 +23,14 @@ const AllPage = () => {
   const [updateData, setUpdateData] = useState(null);
   const transactionToast = useTransactionToast();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingAction, setIsLoadingAction] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const modalRef = useRef<any>("");
 
-  useEffect(() => {
-    async function getAllCampaigns() {
+  async function getAllCampaigns() {
+    try {
+      setIsLoading(true);
       // @ts-ignore
       const res = await fetch(
         "/api/campaigns?id=" + wallet.publicKey?.toString()
@@ -32,15 +38,20 @@ const AllPage = () => {
       const data = await res.json();
       console.log(data.data);
       setAllCampaigns(data.data);
+    } catch (err) {
+      toast.error(`${err}`);
+    } finally {
+      setIsLoading(false);
     }
+  }
+
+  useEffect(() => {
     if (wallet.publicKey) {
       getAllCampaigns();
     }
   }, [wallet.publicKey]);
 
   async function handleCloseCampaign(cmp) {
-    console.log(cmp);
-
     const [campaign, _] = PublicKey.findProgramAddressSync(
       [
         Buffer.from("campaign"),
@@ -50,6 +61,7 @@ const AllPage = () => {
       program.programId
     );
     try {
+      setIsLoadingAction(true);
       const tx = await program.methods
         .closeCampaign()
         .accountsPartial({
@@ -62,13 +74,16 @@ const AllPage = () => {
       await fetch(`/api/campaign?id=${cmp.id}&action=close`, {
         method: "PATCH",
       });
-      router.push("/all");
+      getAllCampaigns();
     } catch (err) {
       toast.error(`${err}`);
+    } finally {
+      setIsLoadingAction(false);
     }
   }
 
   async function updateCampaign(cmp) {
+    setIsModalOpen(true);
     const [campaign, _] = PublicKey.findProgramAddressSync(
       [
         Buffer.from("campaign"),
@@ -78,6 +93,7 @@ const AllPage = () => {
       program.programId
     );
     try {
+      setIsLoadingAction(true);
       const tx = await program.methods
         .updateCampaign(description ? description : null, url ? url : null)
         .accountsPartial({
@@ -85,7 +101,6 @@ const AllPage = () => {
           campaign,
         })
         .rpc();
-
       await fetch(`/api/campaign?id=${cmp.id}&action=update`, {
         method: "PATCH",
         body: JSON.stringify({
@@ -97,9 +112,12 @@ const AllPage = () => {
       setDescription("");
       setUrl("");
       setUpdateData(null);
-      router.push("/all");
+      getAllCampaigns();
     } catch (err) {
       toast.error(`${err}`);
+    } finally {
+      setIsModalOpen(false);
+      setIsLoadingAction(false);
     }
   }
 
@@ -110,6 +128,9 @@ const AllPage = () => {
           "grid md:grid-cols-2 lg:grid-cols-3 mt-[60px] max-w-7xl mx-auto flex-wrap  gap-4 w-full"
         }
       >
+        {isLoading && (
+          <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 loading loading-spinner text-success size-24"></span>
+        )}
         {allCampaign.map((cmp, i) => {
           return (
             <div
@@ -155,9 +176,7 @@ const AllPage = () => {
               <progress
                 className="progress progress-success w-full"
                 value={
-                  (Number(Number(cmp?.currentAmount) / LAMPORTS_PER_SOL) /
-                    Number(cmp?.targetAmount)) *
-                  100
+                  (Number(cmp?.currentAmount) / Number(cmp?.targetAmount)) * 100
                 }
                 max="100"
               ></progress>
@@ -171,10 +190,7 @@ const AllPage = () => {
                 <p className={"font-semibold text-xs text-green-600"}>
                   Raised:{" "}
                   <span className={"text-green-600 text-xs font-normal"}>
-                    {(
-                      Number(cmp?.currentAmount) / LAMPORTS_PER_SOL
-                    )?.toString()}{" "}
-                    SOL
+                    {cmp?.currentAmount} SOL
                   </span>
                 </p>
               </div>
@@ -192,7 +208,7 @@ const AllPage = () => {
                   disabled={!!cmp?.isCompleted}
                   onClick={() => {
                     setUpdateData(cmp);
-                    document.getElementById("my_modal_1").showModal();
+                    setIsModalOpen(true);
                   }}
                   className="btn w-1/2 mt-auto btn-neutral text-white border-none bg-green-900 cus-btn-disabled"
                 >
@@ -202,14 +218,21 @@ const AllPage = () => {
             </div>
           );
         })}
-        {allCampaign.length === 0 && (
+        {!isLoading && allCampaign.length === 0 && (
           <p className="text-green-600 text-3xl text-center absolute top-[200px] left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             No Campaign Found :(
           </p>
         )}
       </div>
-      (
-      <dialog id="my_modal_1" className="modal">
+      {/* The button to open modal */}
+      {/* Put this part before </body> tag */}
+      <input
+        type="checkbox"
+        id="my_modal_6"
+        className="modal-toggle"
+        checked={isModalOpen}
+      />
+      <div className="modal" role="dialog">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Update Campaign!</h3>
 
@@ -229,17 +252,23 @@ const AllPage = () => {
             onChange={(e) => setUrl(e.target.value)}
           />
           <div className="modal-action">
-            <button onClick={() => updateCampaign(updateData)} className="btn">
+            <button
+              onClick={() => updateCampaign(updateData)}
+              className="btn"
+              disabled={isLoadingAction}
+            >
               Update Campaign
             </button>
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
               <button
                 className="btn"
+                disabled={isLoadingAction}
                 onClick={() => {
                   setDescription("");
                   setUrl("");
                   setUpdateData(null);
+                  setIsModalOpen(false);
                 }}
               >
                 Close
@@ -247,8 +276,7 @@ const AllPage = () => {
             </form>
           </div>
         </div>
-      </dialog>
-      )
+      </div>
     </>
   );
 };

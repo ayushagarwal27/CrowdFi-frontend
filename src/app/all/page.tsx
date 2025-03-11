@@ -15,10 +15,12 @@ import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import { BN } from "bn.js";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const AllPage = () => {
   const [donateAmount, setDonateAmount] = useState(0);
   const [allCampaign, setAllCampaigns] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const wallet = useWallet();
   const { connection } = useConnection();
@@ -28,39 +30,55 @@ const AllPage = () => {
 
   const transactionToast = useTransactionToast();
 
-  useEffect(() => {
-    async function getAllCampaigns() {
-      // @ts-ignore
+  async function getAllCampaigns() {
+    setIsLoading(true);
+    try {
       const res = await fetch("/api/campaigns");
       const data = await res.json();
       console.log(data);
 
       setAllCampaigns(data.data);
+    } catch (err) {
+      toast.error(`${err}`);
+    } finally {
+      setIsLoading(false);
     }
+  }
+  useEffect(() => {
     getAllCampaigns();
   }, []);
 
   async function handleDonate(cmp) {
-    console.log(cmp);
+    const [campaign, campaign_bump] = PublicKey.findProgramAddressSync(
+      [
+        Buffer.from("campaign"),
+        Buffer.from(cmp.title),
+        new PublicKey(cmp.admin).toBuffer(),
+      ],
+      program.programId
+    );
     const [campaign_vault, config_bump] = PublicKey.findProgramAddressSync(
-      [Buffer.from("campaign_vault"), cmp.publicKey.toBuffer()],
+      [Buffer.from("campaign_vault"), campaign.toBuffer()],
       programInfo.programID
     );
     const [campaign_mint, mint_bump_aas] = PublicKey.findProgramAddressSync(
-      [Buffer.from("reward_mint"), cmp.publicKey.toBuffer()],
+      [Buffer.from("reward_mint"), campaign.toBuffer()],
       programInfo.programID
     );
     const [donation_info, mint_bump_as] = PublicKey.findProgramAddressSync(
-      [Buffer.from("donation"), cmp.publicKey.toBuffer()],
+      [Buffer.from("donation"), campaign.toBuffer()],
       programInfo.programID
     );
     try {
-      const configs = await program.account.config.all();
-      console.log(cmp);
+      const res = await fetch("/api/config");
+      const data = await res.json();
+      const configs = data.data;
+      // console.log(configs, cmp);
 
       const adminConfig = configs.filter(
-        (cm) => cm.publicKey.toBase58() === cmp.account.config.toBase58()
+        (cm) => cm.publicKey === cmp.configKey
       )[0];
+
       const userRewardAtaB = await getAssociatedTokenAddress(
         campaign_mint,
         wallet.publicKey
@@ -70,20 +88,21 @@ const AllPage = () => {
           new BN(donateAmount * web3.LAMPORTS_PER_SOL) // Donating the amount plus the an offset
         )
         .accountsPartial({
-          campaign: cmp.publicKey,
-          config: cmp.account.config,
-          campaignAdmin: cmp.account.admin,
-          admin: adminConfig.account.admin,
+          campaign,
+          config: new PublicKey(cmp.configKey),
+          campaignAdmin: new PublicKey(cmp.admin),
+          admin: new PublicKey(adminConfig.admin),
           vault: campaign_vault,
           rewardMint: campaign_mint,
-          // userRewardAta: userRewardAtaB,
-          // donationInfo: donation_info,
-          // tokenProgram: TOKEN_2022_PROGRAM_ID,
           tokenProgram: TOKEN_PROGRAM_ID,
           associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
         })
         .rpc();
       transactionToast(tx);
+      await fetch(`/api/campaign/donate?id=${cmp.id}&amount=${donateAmount}`, {
+        method: "PATCH",
+      });
+      getAllCampaigns();
     } catch (err) {
       toast.error(`${err}`);
     }
@@ -95,6 +114,9 @@ const AllPage = () => {
         "grid md:grid-cols-2 lg:grid-cols-3 mt-[60px] max-w-7xl mx-auto flex-wrap  gap-4 w-full"
       }
     >
+      {isLoading && (
+        <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 loading loading-spinner text-success size-24"></span>
+      )}
       {allCampaign.map((cmp, i) => {
         return (
           <div
@@ -141,9 +163,7 @@ const AllPage = () => {
             <progress
               className="progress progress-success w-full"
               value={
-                (Number(Number(cmp?.currentAmount) / LAMPORTS_PER_SOL) /
-                  Number(cmp?.targetAmount)) *
-                100
+                (Number(cmp?.currentAmount) / Number(cmp?.targetAmount)) * 100
               }
               max="100"
             ></progress>
@@ -157,8 +177,7 @@ const AllPage = () => {
               <p className={"font-semibold text-xs text-green-600"}>
                 Raised:{" "}
                 <span className={"text-green-600 text-xs font-normal"}>
-                  {(Number(cmp?.currentAmount) / LAMPORTS_PER_SOL).toString()}{" "}
-                  SOL
+                  {cmp?.currentAmount} SOL
                 </span>
               </p>
             </div>
