@@ -1,4 +1,4 @@
-import prisma from "@/lib/prisma";
+import {prisma} from "@/lib/prisma";
 import { publicKey } from "@coral-xyz/anchor/dist/cjs/utils";
 import { cp } from "fs";
 import { NextRequest, NextResponse } from "next/server";
