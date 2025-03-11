@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -15,7 +16,7 @@ datasource db {
 
 model Config {
   id          String   @id @default(uuid())
-  publicKey   String  @unique
+  publicKey   String   @unique
   admin       String // Represents the Pubkey in your Rust struct
   maxDuration String // Equivalent to u64 in Rust
   maxAmount   String // Equivalent to u64 in Rust
