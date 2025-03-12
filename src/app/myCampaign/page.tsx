@@ -33,7 +33,8 @@ const AllPage = () => {
       setIsLoading(true);
       // @ts-ignore
       const res = await fetch(
-        "/api/campaigns?id=" + wallet.publicKey?.toString()
+        "/api/campaigns/" + wallet.publicKey?.toString(),
+        { cache: "no-cache" }
       );
       const data = await res.json();
       console.log(data.data);

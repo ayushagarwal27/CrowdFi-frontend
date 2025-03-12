@@ -1,11 +1,12 @@
-import {prisma} from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function PATCH(
+export async function GET(
   request: Request,
   { params }: { params: { id: string } }
 ) {
   const userPublicKey = params.id;
+
   try {
     const myCampaigns = await prisma.campaign.findMany({
       where: { admin: userPublicKey },

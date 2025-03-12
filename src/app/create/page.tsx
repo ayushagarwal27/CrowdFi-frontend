@@ -37,7 +37,7 @@ const CreateCampaign = () => {
   useEffect(() => {
     async function getAllConfigAccounts() {
       // @ts-ignore
-      const res = await fetch("/api/config");
+      const res = await fetch("/api/config", { cache: "no-cache" });
       const data = await res.json();
       setConfigs(data.data);
     }

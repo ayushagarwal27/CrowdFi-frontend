@@ -34,7 +34,7 @@ const AllPage = () => {
   async function getAllCampaigns() {
     setIsLoading(true);
     try {
-      const res = await fetch("/api/campaigns");
+      const res = await fetch("/api/campaigns", { cache: "no-cache" });
       const data = await res.json();
       console.log(data);
 
@@ -72,7 +72,7 @@ const AllPage = () => {
       programInfo.programID
     );
     try {
-      const res = await fetch("/api/config");
+      const res = await fetch("/api/config", { cache: "no-cache" });
       const data = await res.json();
       const configs = data.data;
       // console.log(configs, cmp);
